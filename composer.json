@@ -18,7 +18,8 @@
     "extra": {
         "laravel": {
             "providers" : [
-                "Soukar\\Larepo\\LarepoServiceProvider"
+                "Soukar\\Larepo\\LarepoServiceProvider",
+                "Soukar\\Larepo\\RepositoryServiceProvider"
             ]
         }
     },

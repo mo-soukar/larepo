@@ -20,12 +20,14 @@ class RepositoryServiceProvider extends ServiceProvider
 
         if(File::exists($interfacesPath)){
             $interfacesFiles = File::files($interfacesPath);
+
             foreach ($interfacesFiles as $interface)
             {
                 $interfaceName = $interface->getFilenameWithoutExtension();
                 $proxyName = Str::replace('Interface','Proxy',$interfaceName);
-                $proxyNameSpace = $proxiesNamesSpace.$proxyName;
-                $interfaceNameSpace = $interfacesNameSpace.$interfaceName;
+                $proxyNameSpace = $proxiesNamesSpace.'\\'.$proxyName;
+                $interfaceNameSpace = $interfacesNameSpace.'\\'.$interfaceName;
+
                 $this->app->bind($interfaceNameSpace,$proxyNameSpace);
             }
         }
