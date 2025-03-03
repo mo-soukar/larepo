@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
+use Soukar\Larepo\Interfaces\DataObjectTransfer;
 use Soukar\Larepo\Interfaces\RepositoryHasRelatedModels;
 use Soukar\Larepo\Interfaces\RepositoryInterface;
 use Soukar\Larepo\Interfaces\ShouldCache;
@@ -81,7 +82,7 @@ class ProxyRepository implements RepositoryInterface
         }
     }
 
-    public function add(array $data): Model
+    public function add(array|DataObjectTransfer $data): Model
     {
         $model = $this->repository->add($data);
         if($this->shouldDoCache())
@@ -90,7 +91,7 @@ class ProxyRepository implements RepositoryInterface
 
     }
 
-    public function update(array $data, $id): bool
+    public function update(array|DataObjectTransfer $data, $id): bool
     {
         $model = $this->repository->update($data,$id);
         if($this->shouldDoCache())

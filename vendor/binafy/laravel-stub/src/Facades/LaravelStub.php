@@ -5,14 +5,15 @@ namespace Binafy\LaravelStub\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static from(string $path): static
- * @method static to(string $to): static
- * @method static name(string $name): static
- * @method static ext(string $ext): static
- * @method static replace(string $key, mixed $value): static
- * @method static replaces(array $replaces): static
- * @method static download(): mixed
- * @method static generate(): bool
+ * @method static static from(string $path)
+ * @method static static to(string $to)
+ * @method static static name(string $name)
+ * @method static static ext(string $ext)
+ * @method static static replace(string $key, mixed $value)
+ * @method static static replaces(array $replaces)
+ * @method static mixed download()
+ * @method static bool generate()
+ * @method static static conditions(array<string, bool|mixed|Closure> $conditions)
  *
  * @see \Binafy\LaravelStub\LaravelStub
  */

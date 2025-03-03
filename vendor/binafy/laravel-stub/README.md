@@ -2,10 +2,10 @@
 
 <img src="https://banners.beyondco.de/Laravel%20Stub.png?theme=dark&packageManager=composer+require&packageName=binafy%2Flaravel-stub&pattern=yyy&style=style_1&description=Generate+stub+files+very+easy+in+Laravel+framework&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg" alt="laravel-stub-banner">
 
-[![PHP Version Require](http://poser.pugx.org/binafy/laravel-stub/require/php)](https://packagist.org/packages/binafy/laravel-stub)
-[![Latest Stable Version](http://poser.pugx.org/binafy/laravel-stub/v)](https://packagist.org/packages/binafy/laravel-stub)
-[![Total Downloads](http://poser.pugx.org/binafy/laravel-stub/downloads)](https://packagist.org/packages/binafy/laravel-stub)
-[![License](http://poser.pugx.org/binafy/laravel-stub/license)](https://packagist.org/packages/binafy/laravel-stub)
+[![PHP Version Require](https://img.shields.io/packagist/dependency-v/binafy/laravel-stub/php.svg)](https://packagist.org/packages/binafy/laravel-stub)
+[![Latest Stable Version](https://img.shields.io/packagist/v/binafy/laravel-stub.svg)](https://packagist.org/packages/binafy/laravel-stub)
+[![Total Downloads](https://img.shields.io/packagist/dt/binafy/laravel-stub.svg)](https://packagist.org/packages/binafy/laravel-stub)
+[![License](https://img.shields.io/packagist/l/binafy/laravel-stub.svg)](https://packagist.org/packages/binafy/laravel-stub)
 [![Passed Tests](https://github.com/binafy/laravel-stub/actions/workflows/tests.yml/badge.svg)](https://github.com/binafy/laravel-stub/actions/workflows/tests.yml)
 
 - [Introduction](#introduction)
@@ -20,12 +20,18 @@
     - [`ext`](#ext)
     - [`replace`](#replace)
     - [`replaces`](#replaces)
+    - [`moveStub`](#move-stub)
+    - [`conditions`](#conditions)
     - [`download`](#download)
     - [`generate`](#generate)
+    - [`generateForce`](#generate-force)
+    - [`generateIf`](#generate-if)
+    - [`generateUnless`](#generate-unless)
 - [Contributors](#contributors)
 - [Security](#security)
 - [Changelog](#changelog)
 - [License](#license)
+- [Donate](#donate)
 
 <a name="introduction"></a>
 ## Introduction
@@ -85,7 +91,7 @@ class {{ CLASS }}
 You may use Laravel Stub, you need to use the `LaravelStub` facade:
 
 ```php
-namespace Binafy\LaravelStub\Facades\LaravelStub;
+use Binafy\LaravelStub\Facades\LaravelStub;
 
 LaravelStub::class;
 ```
@@ -161,6 +167,67 @@ LaravelStub::from(__DIR__ . 'model.stub')
     ]);
 ```
 
+<a name="move-stub"></a>
+### `moveStub`
+
+By default, `Laravel Stub` creates a copy from your stub file and moves it to the destination path. If you want to move the current stub file, you can use the `moveStub` method:
+
+```php
+LaravelStub::from(__DIR__ . 'model.stub')
+    ->to(__DIR__ . '/App')
+    ->name('new-model')
+    ->ext('php')
+    ->replaces([
+        'NAMESPACE' => 'App',
+        'CLASS' => 'Milwad'
+    ])
+    ->moveStub();
+```
+
+After running this code, the `model.stub` didn't exist.
+
+<a name="conditions"></a>
+### `conditions`
+
+The `conditions` method allows you to define conditional blocks within your stub files.
+You can specify conditions that determine whether certain parts of the stub should be included or excluded based on provided values or closures.
+
+```php
+LaravelStub::from(__DIR__ . 'model.stub')
+    ->to(__DIR__ . '/App')
+    ->name('new-model')
+    ->ext('php')
+    ->replaces([
+        'NAMESPACE' => 'App',
+        'CLASS' => 'Milwad'
+    ])
+    ->conditions([
+        'hasController' => true,
+        'hasController' => fn() => false, // or with closure
+    ])
+    ->generate();
+```
+
+> NOTE: Ensure that your stub files contain the appropriate conditional placeholders (e.g., {{ if isEnabled }}) to utilize this method effectively.
+
+Your stub code should looks like this:
+
+```php
+<?php
+
+namespace {{ NAMESPACE }};
+
+class {{ CLASS }}
+{
+    {{ if hasController }}
+    public function controller()
+    {
+        // Controller logic here
+    }
+    {{ endif }}
+}
+```
+
 <a name="download"></a>
 ### `download`
 
@@ -210,6 +277,57 @@ class Milwad
 }
 ```
 
+<a name="generate-force"></a>
+### `generateForce`
+
+If you want to generate a stub file and overwrite it if it exists, you can use the `generateForce` method:
+
+```php
+LaravelStub::from(__DIR__ . 'model.stub')
+    ->to(__DIR__ . '/App')
+    ->name('new-model')
+    ->ext('php')
+    ->replaces([
+        'NAMESPACE' => 'App',
+        'CLASS' => 'Milwad'
+    ])
+    ->generateForce();
+```
+
+<a name="generate-if"></a>
+### `generateIf`
+
+If you want to generate a stub file if given boolean expression evaluates to `true`, you can use the `generateIf` method:
+
+```php
+LaravelStub::from(__DIR__ . 'model.stub')
+    ->to(__DIR__ . '/App')
+    ->name('new-model')
+    ->ext('php')
+    ->replaces([
+        'NAMESPACE' => 'App',
+        'CLASS' => 'Milwad'
+    ])
+    ->generateIf(true);
+```
+
+<a name="generate-unless"></a>
+### `generateUnless`
+
+If you want to generate a stub file if given boolean expression evaluates to `false`, you can use the `generateIf` method:
+
+```php
+LaravelStub::from(__DIR__ . 'model.stub')
+    ->to(__DIR__ . '/App')
+    ->name('new-model')
+    ->ext('php')
+    ->replaces([
+        'NAMESPACE' => 'App',
+        'CLASS' => 'Milwad'
+    ])
+    ->generateUnless(true);
+```
+
 <a name="contributors"></a>
 ## Contributors
 
@@ -231,3 +349,11 @@ The changelog can be found in the `CHANGELOG.md` file of the GitHub repository. 
 ## License
 
 The MIT License (MIT). Please see [License File](https://github.com/binafy/laravel-stub/blob/1.x/LICENSE) for more information.
+
+## Donate
+
+If this package is helpful for you, you can buy a coffee for me :) ❤️
+
+- Iraninan Gateway: https://daramet.com/milwad_khosravi
+- Paypal Gateway: SOON
+- MetaMask Address: `0xf208a562c5a93DEf8450b656c3dbc1d0a53BDE58`
