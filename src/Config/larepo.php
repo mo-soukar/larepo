@@ -8,7 +8,7 @@
             'path' => 'Interfaces/LaRepositories',   //Relative Path After app
         ],
         'repositories' => [
-            'namespace' => 'App\Interfaces\LaRepositories',
+            'namespace' => 'App\LaRepositories',
             'path' => 'LaRepositories',   //Relative Path After app
         ],
         'DTO' => [
