@@ -2,6 +2,7 @@
 
 namespace Soukar\Larepo\Repositories;
 
+use Soukar\Larepo\Interfaces\DataObjectTransfer;
 use Soukar\Larepo\Interfaces\RepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -108,12 +109,12 @@ class Repository implements RepositoryInterface
         // TODO: Implement findWhere() method.
     }
 
-    public function add(array $data): Model
+    public function add(array|DataObjectTransfer $data): Model
     {
        return $this->model::create($data);
     }
 
-    public function update(array $data, $id): bool
+    public function update(array|DataObjectTransfer $data, $id): bool
     {
         if($id instanceof Model)
             return $id->update($data);
