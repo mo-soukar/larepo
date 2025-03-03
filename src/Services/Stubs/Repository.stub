@@ -1,0 +1,19 @@
+<?php
+
+namespace {{ REPOSITORIES_NAMESPACE }};
+
+use {{ INTERFACES_NAMESPACE }}\{{ MODEL }}RepositoryInterface;
+use Soukar\Larepo\Interfaces\ShouldCache;
+use Soukar\Larepo\Repositories\Repository;
+use App\Models\{{ MODEL }};
+
+
+class {{ MODEL }}Repository extends Repository implements {{ MODEL }}RepositoryInterface
+{
+    public function __construct(
+        private {{ MODEL }} $model
+    )
+    {
+        parent::__construct($this->model);
+    }
+}

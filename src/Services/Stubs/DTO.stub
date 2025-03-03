@@ -1,0 +1,24 @@
+<?php
+
+    namespace {{ DTO_NAMESPACE }};
+
+    use Soukar\Larepo\Interfaces\DataObjectTransfer;
+
+    class {{ MODEL }}DTO extends DataObjectTransfer
+    {
+
+        public function __construct()
+        {
+            //TODO: Add Properties
+        }
+
+        static function addRules(): array
+        {
+            // TODO: Implement addRules() method.
+        }
+
+        static function updateRules(): array
+        {
+            // TODO: Implement updateRules() method.
+        }
+    }

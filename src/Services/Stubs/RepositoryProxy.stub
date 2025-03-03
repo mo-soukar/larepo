@@ -1,0 +1,17 @@
+<?php
+
+namespace {{ REPOSITORIES_NAMESPACE }}\Proxy;
+
+use {{ INTERFACES_NAMESPACE }}\{{ MODEL }}RepositoryInterface;
+use App\Models\{{ MODEL }};
+use {{ REPOSITORIES_NAMESPACE }}\{{ MODEL }}Repository;
+use Soukar\Larepo\Repositories\ProxyRepository;
+use Illuminate\Database\Eloquent\Model;
+
+class {{ MODEL }}RepositoryProxy extends ProxyRepository implements {{ MODEL }}RepositoryInterface
+{
+    public function __construct({{ MODEL }}Repository $repository, {{ MODEL }} $model)
+    {
+        parent::__construct($repository, $model);
+    }
+}

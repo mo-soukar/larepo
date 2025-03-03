@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ INTERFACES_NAMESPACE }};
+
+use Soukar\Larepo\Interfaces\RepositoryInterface;
+
+interface {{ MODEL }}RepositoryInterface extends RepositoryInterface
+{
+
+}
