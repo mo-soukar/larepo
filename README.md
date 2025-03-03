@@ -16,7 +16,7 @@ Larepo is a Laravel package designed to simplify the implementation of the **Rep
 You can install the package via Composer:
 
 ```bash
-composer require mo-soukar/larepo
+composer require soukar/larepo
 ```
 After installing the package, publish the configuration file (optional):
 ```bash
