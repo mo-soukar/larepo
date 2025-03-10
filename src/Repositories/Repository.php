@@ -109,11 +109,13 @@ class Repository implements RepositoryInterface
 
     public function update(array|DataObjectTransfer $data, $id): bool
     {
-        if ($id instanceof Model)
-            return $id->update($data);
         if ($data instanceof DataObjectTransfer) {
             $data = $data->toArray();
         }
+
+        if ($id instanceof Model)
+            return $id->update($data);
+
         return $this->model::whereId($id)->update($data);
     }
 
