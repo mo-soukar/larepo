@@ -16,11 +16,9 @@ class Repository implements RepositoryInterface
 
     public function __construct(
         private Model $model,
-    )
-    {
-    }
+    ) {}
 
-    public function getWhere(array $whereFilters = [], array $whereInFilters = [], DataLimitService $dataLimit = new DataLimitService(), array $relations = [], array $whereHasRelations = [], array $whereDoesNotHaveRelations = [], array $orderBy = [], array $joins = [], array $select =[] , array $scopes=[]): mixed
+    public function getWhere(array $whereFilters = [], array $whereInFilters = [], DataLimitService $dataLimit = new DataLimitService(), array $relations = [], array $whereHasRelations = [], array $whereDoesNotHaveRelations = [], array $orderBy = [], array $joins = [], array $select = [], array $scopes = []): mixed
     {
         $query = $this->getWhereQuery(
             $whereFilters,
@@ -37,61 +35,53 @@ class Repository implements RepositoryInterface
         return $dataLimit->get($query);
     }
 
-    public function getWhereQuery(array $whereFilters = [], array $whereInFilters = [], DataLimitService $dataLimit = new DataLimitService(), array $relations = [], array $whereHasRelations = [], array $whereDoesNotHaveRelations = [], array $orderBy = [], array $joins = [], array $select =[] ,  array $scopes=[]): Builder|\Illuminate\Database\Eloquent\Builder
+    public function getWhereQuery(array $whereFilters = [], array $whereInFilters = [], DataLimitService $dataLimit = new DataLimitService(), array $relations = [], array $whereHasRelations = [], array $whereDoesNotHaveRelations = [], array $orderBy = [], array $joins = [], array $select = [],  array $scopes = []): Builder|\Illuminate\Database\Eloquent\Builder
     {
 
         $query = ($this->model)::query();
         $repositoryQueryService = new RepositoryQueryService();
-        $repositoryQueryService->whereQuery($query,$whereFilters);
-        if(count($relations)){
+        $repositoryQueryService->whereQuery($query, $whereFilters);
+        if (count($relations)) {
             $query->with($relations);
         }
 
 
-        if(count($whereHasRelations))
-        {
+        if (count($whereHasRelations)) {
 
-            foreach ($whereHasRelations as $key => $value)
-            {
-                if(is_numeric($key))
+            foreach ($whereHasRelations as $key => $value) {
+                if (is_numeric($key))
                     $query->whereHas($value);
                 else
-                  $query->whereHas($key , $value);
+                    $query->whereHas($key, $value);
             }
         }
 
-        if(count($whereInFilters)){
-            foreach ($whereInFilters as $column=>$search)
-            {
-                $query->whereIn($column,$search);
+        if (count($whereInFilters)) {
+            foreach ($whereInFilters as $column => $search) {
+                $query->whereIn($column, $search);
             }
         }
 
-        if(count($joins))
-        {
-            foreach ($joins as $tableToJoin)
-            {
+        if (count($joins)) {
+            foreach ($joins as $tableToJoin) {
                 $query->join(...$tableToJoin);
             }
         }
 
-        if(count($select)){
+        if (count($select)) {
             $query->select($select);
         }
 
-        if(count($scopes))
-        {
-            foreach ($scopes as $scope)
-            {
+        if (count($scopes)) {
+            foreach ($scopes as $scope) {
                 $query->$scope();
             }
         }
 
-        foreach ($orderBy as $column)
-        {
-            if(is_array($column)){
+        foreach ($orderBy as $column) {
+            if (is_array($column)) {
                 $query->orderBy(...$column);
-            }else{
+            } else {
                 $query->orderBy($column);
             }
         }
@@ -111,27 +101,31 @@ class Repository implements RepositoryInterface
 
     public function add(array|DataObjectTransfer $data): Model
     {
-       return $this->model::create($data);
+        if ($data instanceof DataObjectTransfer) {
+            $data = $data->toArray();
+        }
+        return $this->model::create($data);
     }
 
     public function update(array|DataObjectTransfer $data, $id): bool
     {
-        if($id instanceof Model)
+        if ($id instanceof Model)
             return $id->update($data);
-
+        if ($data instanceof DataObjectTransfer) {
+            $data = $data->toArray();
+        }
         return $this->model::whereId($id)->update($data);
     }
 
     public function delete(Model|string $id, array $relationsToDelete = []): bool
     {
-        if(is_string($id))
+        if (is_string($id))
             $model = $this->findById($id);
         else
-            $model=$id;
+            $model = $id;
 
-        if(count($relationsToDelete)){
-            foreach ($relationsToDelete as $relation)
-            {
+        if (count($relationsToDelete)) {
+            foreach ($relationsToDelete as $relation) {
                 $model->$relation()->delete();
             }
         }
