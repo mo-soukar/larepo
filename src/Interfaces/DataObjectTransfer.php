@@ -19,17 +19,16 @@ abstract class DataObjectTransfer
         $properties = ClassUtilService::getClassProperties(static::class);
 
         $object = new static;
-        foreach ($data as $key => $value) {
-            if (in_array($key, $properties)) {
-
-                $setterMethod = 'set' . Str::replace(' ', '', Str::headline($key));
+        foreach ($properties as $property) {
+            if (key_exists($property, $data)) {
+                $setterMethod = 'set' . Str::replace(' ', '', Str::headline($property));
                 // Check if the setter method exists in the object
                 if (method_exists($object, $setterMethod)) {
                     // Call the setter method
-                    $object->{$setterMethod}($value);
+                    $object->{$setterMethod}($data[$property]);
                 } else {
                     // Fallback to direct property assignment
-                    $object->{$key} = $value;
+                    $object->{$property} = $data[$property];
                 }
             }
         }
