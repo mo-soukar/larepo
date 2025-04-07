@@ -18,8 +18,8 @@ class ProxyRepository implements RepositoryInterface
 {
 
     public function __construct(
-        private RepositoryInterface $repository,
-        private Model $model
+        protected RepositoryInterface $repository,
+        protected Model $model
     )
     {
     }
