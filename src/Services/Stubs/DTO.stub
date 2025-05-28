@@ -4,6 +4,9 @@
 
     use Soukar\Larepo\Interfaces\DataObjectTransfer;
 
+    use Illuminate\Foundation\Http\FormRequest;
+
+
     class {{ MODEL }}DTO extends DataObjectTransfer
     {
 
@@ -12,12 +15,12 @@
             //TODO: Add Properties
         }
 
-        static function addRules(): array
+        static function addRules(FormRequest $request=NULL): array
         {
             // TODO: Implement addRules() method.
         }
 
-        static function updateRules(): array
+        static function updateRules(FormRequest $request=NULL): array
         {
             // TODO: Implement updateRules() method.
         }

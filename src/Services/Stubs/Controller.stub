@@ -1,0 +1,122 @@
+<?php
+
+namespace {{ CONTROLLERS_NAMESPACE }};
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\{{ MODEL }};
+use {{ INTERFACES_NAMESPACE }}\{{ MODEL }}RepositoryInterface;
+USE {{ REQUESTS_NAMESPACE }}\{{ ADD_REQUEST }};
+USE {{ REQUESTS_NAMESPACE }}\{{ UPDATE_REQUEST }};
+use Soukar\Larepo\Services\DataLimitService;
+use {{ RESPONSE_TRAIT }} as ResponseTrait;
+use {{ DTO_NAMESPACE }}\{{ DTO_NAME }};
+
+class {{ CONTROLLER_NAME }} extends Controller
+{
+   use ResponseTrait;
+
+   public function __construct(
+            private {{ MODEL }}RepositoryInterface ${{ REPOSITORY_NAME }},
+        )
+        {
+        }
+
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $filters =[];
+        $dataLimit = new DataLimitService(paginationPage:$request->page??1);
+
+        $data = $this->{{ REPOSITORY_NAME }}->getWhere(
+               whereFilters:$filters,
+               dataLimit:$dataLimit
+        );
+        return $this->successResponse($data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store({{ ADD_REQUEST }} $request)
+    {
+        try{
+            $data = $this->{{ REPOSITORY_NAME }}->add({{ DTO_NAME }}::fromRequest($request));
+            return $this->successResponse($data);
+        }catch(\Throwable $throwable){
+            report($throwable);
+            return $this->errorResponse(__('messages.500'),500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+         $data = $this->{{ REPOSITORY_NAME }}->findById(
+                       $id,
+                       relations:[]
+                );
+         if(!$data)
+            return $this->errorResponse(__('messages.404'),404);
+
+         return $this->successResponse($data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update({{ UPDATE_REQUEST }} $request, string $id)
+    {
+          try{
+                 $data = $this->{{ REPOSITORY_NAME }}->findById(
+                                        $id,
+                                        relations:[]
+                                 );
+                 if(!$data)
+                        return $this->errorResponse(__('messages.404'),404);
+                 $data = $this->{{ REPOSITORY_NAME }}->update({{ DTO_NAME }}::fromRequest($request) , $data);
+                 return $this->successResponse($data);
+          }catch(\Throwable $throwable){
+                 report($throwable);
+                 return $this->errorResponse(__('messages.500'),500);
+          }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+          try{
+                 $this->{{ REPOSITORY_NAME }}->delete(
+                                $id ,
+                                relationsToDelete : []
+                         );
+                  return $this->successResponse([]);
+          }catch(\Throwable $throwable){
+                  report($throwable);
+                  return $this->errorResponse(__('messages.500'),500);
+          }
+    }
+}

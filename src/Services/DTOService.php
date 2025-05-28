@@ -24,7 +24,7 @@ class DTOService
             }
             $this->generateDTO($model);
             $command->info(
-                $this->getDTODir() . '\\' . $model . "DTO.php created Successfully"
+                self::getFullDtoPath($model) . ".php created Successfully"
             );
         } catch (FileAlreadyExistsException $exception) {
             $command->error($exception->getMessage());
@@ -42,7 +42,7 @@ class DTOService
         FilesService::createDirectoryIfNotExists($this->getDTODir());
         LaravelStub::from($this->getStubsPath() . 'DTO.stub')
             ->to($this->getDTODir())
-            ->name($modelName . 'DTO')
+            ->name(self::getDtoName($modelName))
             ->ext('php')
             ->replaces(
                 [
@@ -62,10 +62,28 @@ class DTOService
     }
 
 
-    private
-    function getDTODir()
+    static function getDTODir()
     {
         return app_path(config('larepo.DTO.path'));
     }
 
+    static function getDtoName($model): string
+    {
+        if (Str::endsWith(
+            $model,
+            'DTO'
+        )) {
+            $model = Str::replaceLast(
+                'DTO',
+                '',
+                $model
+            );
+        }
+        return $model . 'DTO';
+    }
+
+    static function getFullDtoPath($model): string
+    {
+        return self::getDTODir() . '\\' . self::getDtoName($model);
+    }
 }
