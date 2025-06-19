@@ -16,7 +16,7 @@ class RepositoryService
     {
         try {
 
-            if (!FilesService::checkFile(app_path('Models\\' . $model . '.php'))) {
+            if (!FilesService::checkFile(app_path('Models/' . $model . '.php'))) {
                 throw new ModelDoesNtExistsException();
             }
             $this->generateRepositoryInterface($model);
@@ -34,7 +34,7 @@ class RepositoryService
 
     public function generateRepositoryInterface(string $modelName)
     {
-        $fullPath = $this->getInterfacesDir() . '\\' . $modelName . 'RepositoryInterface.php';
+        $fullPath = $this->getInterfacesDir() . '/' . $modelName . 'RepositoryInterface.php';
         if (FilesService::checkFile($fullPath)) {
             throw new FileAlreadyExistsException($fullPath);
         }
@@ -54,7 +54,7 @@ class RepositoryService
 
     public function generateRepository(string $modelName)
     {
-        $fullPath = $this->getRepositoriesDir() . '\\' . $modelName . 'Repository.php';
+        $fullPath = $this->getRepositoriesDir() . '/' . $modelName . 'Repository.php';
         if (FilesService::checkFile($fullPath)) {
             throw new FileAlreadyExistsException($fullPath);
         }
@@ -75,7 +75,7 @@ class RepositoryService
 
     public function generateRepositoryProxy(string $modelName)
     {
-        $fullPath = $this->getProxiesDir() . '\\' . $modelName . 'RepositoryProxy.php';
+        $fullPath = $this->getProxiesDir() . '/' . $modelName . 'RepositoryProxy.php';
         if (FilesService::checkFile($fullPath)) {
             throw new FileAlreadyExistsException($fullPath);
         }

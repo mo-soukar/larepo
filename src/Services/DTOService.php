@@ -35,7 +35,7 @@ class DTOService
 
     public function generateDTO(string $modelName): bool
     {
-        $fullPath = $this->getDTODir() . '\\' . $modelName . 'DTO.php';
+        $fullPath = $this->getDTODir() . '/' . $modelName . 'DTO.php';
         if (FilesService::checkFile($fullPath)) {
             throw new FileAlreadyExistsException($fullPath);
         }
@@ -58,7 +58,7 @@ class DTOService
     private
     function getStubsPath()
     {
-        return __DIR__ . '\\Stubs\\';
+        return __DIR__ . '/Stubs/';
     }
 
 
@@ -84,6 +84,6 @@ class DTOService
 
     static function getFullDtoPath($model): string
     {
-        return self::getDTODir() . '\\' . self::getDtoName($model);
+        return self::getDTODir() . '/' . self::getDtoName($model);
     }
 }

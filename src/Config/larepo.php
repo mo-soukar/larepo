@@ -26,12 +26,12 @@ return [
     ],
     'requests'      => [
         'namespace' => 'App\Http\Requests',
-        'path'      => 'Http\Requests',
+        'path'      => 'Http/Requests',
         //Relative Path After app
     ],
     'controllers'   => [
         'namespace' => 'App\Http\Controllers',
-        'path'      => 'Http\Controllers',
+        'path'      => 'Http/Controllers',
     ],
     'responseTrait' => \Soukar\Larepo\Traits\ApiResponse::class,
 ];

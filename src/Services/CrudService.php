@@ -10,7 +10,7 @@ class CrudService
     {
         try {
 
-            if (!FilesService::checkFile(app_path('Models\\' . $model . '.php'))) {
+            if (!FilesService::checkFile(app_path('Models/' . $model . '.php'))) {
                 throw new ModelDoesNtExistsException();
             }
             $repositoryService = new RepositoryService();

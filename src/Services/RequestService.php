@@ -71,7 +71,7 @@ class RequestService
     private
     function getStubsPath()
     {
-        return __DIR__ . '\\Stubs\\';
+        return __DIR__ . '/Stubs/';
     }
 
 
@@ -87,7 +87,7 @@ class RequestService
 
     static function getRequestFullPath($type, $model)
     {
-        return self::getRequestsDir() . '\\' . self::getRequestName(
+        return self::getRequestsDir() . '/' . self::getRequestName(
                 $type,
                 $model
             );

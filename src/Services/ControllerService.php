@@ -70,7 +70,7 @@ class ControllerService
     private
     function getStubsPath()
     {
-        return __DIR__ . '\\Stubs\\';
+        return __DIR__ . '/Stubs/';
     }
 
 
@@ -86,7 +86,7 @@ class ControllerService
 
     static function getControllerFullPath($model)
     {
-        return self::getControllersDir() . '\\' . self::getControllerName(
+        return self::getControllersDir() . '/' . self::getControllerName(
                 $model
             );
     }
