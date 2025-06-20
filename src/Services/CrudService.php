@@ -28,6 +28,12 @@ class CrudService
                 $model,
                 $command
             );
+
+            $resourceService = new ResourceService();
+            $resourceService->generate(
+                $model,
+                $command
+            );
             $controllerService = new ControllerService();
             $controllerService->generate(
                 $model,

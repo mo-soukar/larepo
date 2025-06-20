@@ -44,6 +44,7 @@ class ControllerService
             ->replaces(
                 [
                     'REQUESTS_NAMESPACE'    => config('larepo.requests.namespace'),
+                    'RESOURCES_NAMESPACE'    => config('larepo.resources.namespace'),
                     'INTERFACES_NAMESPACE'  => config('larepo.interfaces.namespace'),
                     'CONTROLLERS_NAMESPACE' => config('larepo.controllers.namespace'),
                     'DTO_NAMESPACE'         => config('larepo.DTO.namespace'),
@@ -60,6 +61,9 @@ class ControllerService
                         $model
                     ),
                     'RESPONSE_TRAIT'        => config('larepo.responseTrait'),
+                    'COLLECTION_RESOURCE' => ResourceService::getResourceName("Collection",$model),
+                    'INFO_RESOURCE' => ResourceService::getResourceName("Info",$model),
+
                 ]
             )
             ->generate();

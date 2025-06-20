@@ -11,7 +11,8 @@ USE {{ REQUESTS_NAMESPACE }}\{{ UPDATE_REQUEST }};
 use Soukar\Larepo\Services\DataLimitService;
 use {{ RESPONSE_TRAIT }} as ResponseTrait;
 use {{ DTO_NAMESPACE }}\{{ DTO_NAME }};
-
+use {{ RESOURCES_NAMESPACE }}\{{ COLLECTION_RESOURCE }};
+use {{ RESOURCES_NAMESPACE }}\{{ INFO_RESOURCE }};
 class {{ CONTROLLER_NAME }} extends Controller
 {
    use ResponseTrait;
@@ -35,7 +36,7 @@ class {{ CONTROLLER_NAME }} extends Controller
                whereFilters:$filters,
                dataLimit:$dataLimit
         );
-        return $this->successResponse($data);
+        return $this->successResponse({{ COLLECTION_RESOURCE }}::collection($data));
     }
 
     /**
@@ -53,7 +54,7 @@ class {{ CONTROLLER_NAME }} extends Controller
     {
         try{
             $data = $this->{{ REPOSITORY_NAME }}->add({{ DTO_NAME }}::fromRequest($request));
-            return $this->successResponse($data);
+            return $this->successResponse(new {{ INFO_RESOURCE }}($data));
         }catch(\Throwable $throwable){
             report($throwable);
             return $this->errorResponse(__('messages.500'),500);
@@ -72,7 +73,7 @@ class {{ CONTROLLER_NAME }} extends Controller
          if(!$data)
             return $this->errorResponse(__('messages.404'),404);
 
-         return $this->successResponse($data);
+         return $this->successResponse(new {{ INFO_RESOURCE }}($data));
     }
 
     /**
@@ -95,8 +96,12 @@ class {{ CONTROLLER_NAME }} extends Controller
                                  );
                  if(!$data)
                         return $this->errorResponse(__('messages.404'),404);
-                 $data = $this->{{ REPOSITORY_NAME }}->update({{ DTO_NAME }}::fromRequest($request) , $data);
-                 return $this->successResponse($data);
+                 $this->{{ REPOSITORY_NAME }}->update({{ DTO_NAME }}::fromRequest($request) , $data);
+                 $data = $this->{{ REPOSITORY_NAME }}->findById(
+                                                         $id,
+                                                         relations:[]
+                                                  );
+                 return $this->successResponse(new {{ INFO_RESOURCE }}($data));
           }catch(\Throwable $throwable){
                  report($throwable);
                  return $this->errorResponse(__('messages.500'),500);

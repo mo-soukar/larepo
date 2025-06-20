@@ -5,7 +5,7 @@
         'type' => 'package',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '7b67ad0e9a2c2a669284020a99450b1f83525ff8',
+        'reference' => 'ed859735c0920ae9ff0d13ea997d9365eed670ba',
         'name' => 'soukar/larepo',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../binafy/laravel-stub',
             'aliases' => array(),
-            'reference' => '3c10b74c64af2bcd7156ef65c36e347ba42404a0',
+            'reference' => '9046acab3945c81e9a7cb3068c13dbf48d29e1ec',
             'dev_requirement' => false,
         ),
         'carbonphp/carbon-doctrine-types' => array(
@@ -43,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/collections',
             'aliases' => array(),
-            'reference' => 'a7dc526f2279c4ddac69e296842db90626820157',
+            'reference' => '21a206b2b2297e838c181b482b5f8bbe7ac48f61',
             'dev_requirement' => false,
         ),
         'illuminate/conditionable' => array(
@@ -52,7 +52,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/conditionable',
             'aliases' => array(),
-            'reference' => 'a2b3c66f3ca532e12e694bd5c9254adc303b922d',
+            'reference' => 'ec677967c1f2faf90b8428919124d2184a4c9b49',
             'dev_requirement' => false,
         ),
         'illuminate/contracts' => array(
@@ -61,7 +61,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/contracts',
             'aliases' => array(),
-            'reference' => 'bd1fb3b0dacf0d399b9c39dba89f8cda345218e6',
+            'reference' => 'ad1d16d827927455d3b7e39fabac66b1afb82582',
             'dev_requirement' => false,
         ),
         'illuminate/macroable' => array(
@@ -79,7 +79,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../illuminate/support',
             'aliases' => array(),
-            'reference' => '285b2c5003ae96b1092cf5dd441584f4e9a4cc57',
+            'reference' => '4e5d098d1cdbf5cabff09c1903a141bd9747ae75',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -90,7 +90,7 @@
             'aliases' => array(
                 0 => '3.x-dev',
             ),
-            'reference' => 'ff2f20cf83bd4d503720632ce8a426dc747bf7fd',
+            'reference' => 'c1397390dd0a7e0f11660f0ae20f753d88c1f3d9',
             'dev_requirement' => false,
         ),
         'psr/clock' => array(
@@ -136,7 +136,7 @@
             'type' => 'package',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '7b67ad0e9a2c2a669284020a99450b1f83525ff8',
+            'reference' => 'ed859735c0920ae9ff0d13ea997d9365eed670ba',
             'dev_requirement' => false,
         ),
         'spatie/once' => array(
@@ -146,8 +146,8 @@
             ),
         ),
         'symfony/clock' => array(
-            'pretty_version' => '7.3.x-dev',
-            'version' => '7.3.9999999.9999999-dev',
+            'pretty_version' => '7.4.x-dev',
+            'version' => '7.4.9999999.9999999-dev',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/clock',
             'aliases' => array(),
@@ -184,12 +184,12 @@
             'dev_requirement' => false,
         ),
         'symfony/translation' => array(
-            'pretty_version' => '7.3.x-dev',
-            'version' => '7.3.9999999.9999999-dev',
+            'pretty_version' => '7.4.x-dev',
+            'version' => '7.4.9999999.9999999-dev',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/translation',
             'aliases' => array(),
-            'reference' => 'd0919ecbd0a95ba09dd5f02e1f3c27bae534486e',
+            'reference' => 'ae766e3cc9e1b9dd1ea475f9c7901f6ccfb36946',
             'dev_requirement' => false,
         ),
         'symfony/translation-contracts' => array(
